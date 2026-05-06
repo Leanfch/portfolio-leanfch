@@ -10,6 +10,24 @@ const {
   title = 'Leandro Fernandez — Landing Page Developer',
   description = 'Full-Stack Developer especializado en UI, performance y SEO técnico. Buenos Aires, Argentina.',
 } = Astro.props;
+
+const canonicalURL = 'https://leanfch.dev';
+const ogImage = `${canonicalURL}/og-image.png`;
+const fullTitle = title.includes('Leandro Fernandez')
+  ? title
+  : `${title} | Leandro Fernandez — Landing Page Developer`;
+
+const schemaOrg = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Leandro Fernandez Chapotot',
+  jobTitle: 'Landing Page Developer',
+  url: canonicalURL,
+  sameAs: [
+    'https://linkedin.com/in/chapototleandro',
+    'https://github.com/leanfch',
+  ],
+};
 ---
 
 <!DOCTYPE html>
@@ -17,9 +35,38 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
+
+    <!-- Básico -->
+    <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalURL} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_AR" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Fonts: preconnect primero, luego la hoja de estilos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Geist+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
   </head>
   <body>
     <slot />
