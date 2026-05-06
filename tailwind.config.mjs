@@ -4,14 +4,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: 'var(--color-bg)',
-        'bg-card': 'var(--color-bg-card)',
-        'bg-subtle': 'var(--color-bg-subtle)',
-        border: 'var(--color-border)',
-        text: 'var(--color-text)',
-        'text-muted': 'var(--color-text-muted)',
-        accent: 'var(--color-accent)',
-        'accent-soft': 'var(--color-accent-soft)',
+        bg:           'rgb(10 10 10 / <alpha-value>)',
+        'bg-card':    'rgb(17 17 17 / <alpha-value>)',
+        'bg-subtle':  'rgb(26 26 26 / <alpha-value>)',
+        border:       'rgb(34 34 34 / <alpha-value>)',
+        text:         'rgb(232 232 232 / <alpha-value>)',
+        'text-muted': 'rgb(136 136 136 / <alpha-value>)',
+        accent:       'rgb(79 126 247 / <alpha-value>)',
+        'accent-soft':'rgb(30 58 110 / <alpha-value>)',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
@@ -26,9 +26,6 @@ export default {
         '2xl': 'var(--text-2xl)',
         '3xl': 'var(--text-3xl)',
         '4xl': 'var(--text-4xl)',
-      },
-      borderColor: {
-        DEFAULT: 'var(--color-border)',
       },
     },
   },
