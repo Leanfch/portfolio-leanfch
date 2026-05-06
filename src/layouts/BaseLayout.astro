@@ -1,19 +1,22 @@
 ---
 import '../styles/global.css';
+import type { Lang } from '../i18n/translations';
 
 interface Props {
   title?: string;
   description?: string;
+  lang?: Lang;
 }
 
 const {
-  title = 'Leandro Fernandez — Landing Page Developer',
+  title       = 'Leandro Fernandez — Landing Page Developer',
   description = 'Full-Stack Developer especializado en UI, performance y SEO técnico. Buenos Aires, Argentina.',
+  lang        = 'es',
 } = Astro.props;
 
-const canonicalURL = 'https://leanfch.dev';
-const ogImage = `${canonicalURL}/og-image.png`;
-const fullTitle = title.includes('Leandro Fernandez')
+const canonicalURL = lang === 'es' ? 'https://leanfch.dev/' : 'https://leanfch.dev/en/';
+const ogImage      = 'https://leanfch.dev/og-image.png';
+const fullTitle    = title.includes('Leandro Fernandez')
   ? title
   : `${title} | Leandro Fernandez — Landing Page Developer`;
 
@@ -22,7 +25,7 @@ const schemaOrg = {
   '@type': 'Person',
   name: 'Leandro Fernandez Chapotot',
   jobTitle: 'Landing Page Developer',
-  url: canonicalURL,
+  url: 'https://leanfch.dev',
   sameAs: [
     'https://linkedin.com/in/chapototleandro',
     'https://github.com/leanfch',
@@ -31,7 +34,7 @@ const schemaOrg = {
 ---
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -44,21 +47,26 @@ const schemaOrg = {
     <link rel="canonical" href={canonicalURL} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+    <!-- Hreflang -->
+    <link rel="alternate" hreflang="es"      href="https://leanfch.dev/" />
+    <link rel="alternate" hreflang="en"      href="https://leanfch.dev/en/" />
+    <link rel="alternate" hreflang="x-default" href="https://leanfch.dev/" />
+
     <!-- Open Graph -->
-    <meta property="og:title" content={fullTitle} />
+    <meta property="og:title"       content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage} />
-    <meta property="og:url" content={canonicalURL} />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="es_AR" />
+    <meta property="og:image"       content={ogImage} />
+    <meta property="og:url"         content={canonicalURL} />
+    <meta property="og:type"        content="website" />
+    <meta property="og:locale"      content={lang === 'es' ? 'es_AR' : 'en_US'} />
 
     <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content={fullTitle} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image"       content={ogImage} />
 
-    <!-- Fonts: preconnect primero, luego la hoja de estilos -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -67,17 +75,16 @@ const schemaOrg = {
     />
 
     <!-- Schema.org JSON-LD -->
-    <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(schemaOrg)} />
   </head>
   <body>
-    <!-- Skip to content — accesibilidad teclado -->
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200]
              focus:px-4 focus:py-2 focus:rounded-lg focus:bg-accent focus:text-white
              focus:text-sm focus:font-semibold focus:shadow-lg focus:outline-none"
     >
-      Saltar al contenido principal
+      {lang === 'es' ? 'Saltar al contenido principal' : 'Skip to main content'}
     </a>
     <slot />
     <script>

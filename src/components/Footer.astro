@@ -1,4 +1,12 @@
 ---
+import type { UI } from '../i18n/translations';
+
+interface Props {
+  t: UI['footer'];
+}
+
+const { t } = Astro.props;
+
 const year = new Date().getFullYear();
 ---
 
@@ -15,7 +23,7 @@ const year = new Date().getFullYear();
         target="_blank"
         rel="noopener noreferrer"
         class="hover:text-text transition-colors duration-200"
-        aria-label="LinkedIn de Leandro Fernandez"
+        aria-label="LinkedIn"
       >
         LinkedIn
       </a>
@@ -24,12 +32,12 @@ const year = new Date().getFullYear();
         target="_blank"
         rel="noopener noreferrer"
         class="hover:text-text transition-colors duration-200"
-        aria-label="GitHub de Leandro Fernandez"
+        aria-label="GitHub"
       >
         GitHub
       </a>
       <span class="text-text-muted/40 hidden sm:inline">
-        Hecho con Astro y Tailwind CSS
+        {t.madeWith}
       </span>
     </div>
 

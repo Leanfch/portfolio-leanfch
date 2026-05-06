@@ -1,45 +1,88 @@
 ---
+import type { Lang, UI } from '../i18n/translations';
+
+interface Props {
+  lang: Lang;
+  t: UI['nav'];
+}
+
+const { lang, t } = Astro.props;
 ---
 
 <header class="fixed top-0 inset-x-0 z-50 border-b border-border/60 bg-bg/85 backdrop-blur-md">
   <nav
     class="container flex items-center justify-between h-16"
-    aria-label="Navegación principal"
+    aria-label={lang === 'es' ? 'Navegación principal' : 'Main navigation'}
   >
     <a
-      href="/"
+      href={lang === 'es' ? '/' : '/en'}
       class="font-mono font-bold text-accent text-lg tracking-tight hover:opacity-75 transition-opacity duration-200"
-      aria-label="Inicio — Leandro Fernandez"
+      aria-label={lang === 'es' ? 'Inicio — Leandro Fernandez' : 'Home — Leandro Fernandez'}
     >
       lf
     </a>
 
-    <ul class="flex items-center gap-6 sm:gap-8" role="list">
-      <li>
+    <div class="flex items-center gap-5 sm:gap-6">
+      <ul class="flex items-center gap-5 sm:gap-6" role="list">
+        {t.items.slice(0, 2).map(item => (
+          <li>
+            <a
+              href={item.href}
+              class="text-sm text-text-muted hover:text-text transition-colors duration-200 hidden sm:block"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+        {t.items.slice(2).map(item => (
+          <li>
+            <a
+              href={item.href}
+              class="text-sm text-text-muted hover:text-text transition-colors duration-200"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+        <li>
+          <a
+            href={t.items[3].href}
+            class="text-sm font-medium px-4 py-1.5 rounded-full border border-border text-text
+                   hover:border-accent/40 hover:text-accent transition-all duration-200 hidden sm:block"
+          >
+            {t.items[3].label}
+          </a>
+        </li>
+      </ul>
+
+      <!-- Language switcher -->
+      <div
+        class="flex items-center gap-1.5 pl-4 border-l border-border"
+        aria-label="Language / Idioma"
+      >
         <a
-          href="#proyectos"
-          class="text-sm text-text-muted hover:text-text transition-colors duration-200"
-        >
-          Proyectos
-        </a>
-      </li>
-      <li>
+          href="/"
+          class={`font-mono text-xs px-1.5 py-0.5 rounded transition-colors duration-200 ${
+            lang === 'es'
+              ? 'text-accent font-bold pointer-events-none'
+              : 'text-text-muted hover:text-text'
+          }`}
+          aria-current={lang === 'es' ? 'page' : undefined}
+          hreflang="es"
+        >ES</a>
+        <span class="text-border/80 text-xs" aria-hidden="true">|</span>
         <a
-          href="#stack"
-          class="text-sm text-text-muted hover:text-text transition-colors duration-200"
-        >
-          Stack
-        </a>
-      </li>
-      <li>
-        <a
-          href="#contacto"
-          class="text-sm font-medium px-4 py-1.5 rounded-full border border-border text-text
-                 hover:border-accent/40 hover:text-accent transition-all duration-200"
-        >
-          Contacto
-        </a>
-      </li>
-    </ul>
+          href="/en"
+          class={`font-mono text-xs px-1.5 py-0.5 rounded transition-colors duration-200 ${
+            lang === 'en'
+              ? 'text-accent font-bold pointer-events-none'
+              : 'text-text-muted hover:text-text'
+          }`}
+          aria-current={lang === 'en' ? 'page' : undefined}
+          hreflang="en"
+        >EN</a>
+      </div>
+    </div>
+
   </nav>
 </header>

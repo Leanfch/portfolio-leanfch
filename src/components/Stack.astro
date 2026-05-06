@@ -1,4 +1,12 @@
 ---
+import type { UI } from '../i18n/translations';
+
+interface Props {
+  t: UI['stack'];
+}
+
+const { t } = Astro.props;
+
 interface Tech {
   name: string;
   level: 1 | 2 | 3;
@@ -52,28 +60,19 @@ const categories: Category[] = [
     ],
   },
 ];
-
-const levelLabel: Record<1 | 2 | 3, string> = {
-  1: 'básico',
-  2: 'intermedio',
-  3: 'avanzado',
-};
 ---
 
 <section id="stack" class="section-py" aria-labelledby="stack-heading">
   <div class="container">
 
     <div class="mb-12" data-scroll-fade>
-      <h2 id="stack-heading" class="mb-3">Stack</h2>
-      <p class="text-text-muted max-w-[50ch]">
-        Tecnologías con las que construyo productos web de alta performance.
-      </p>
+      <h2 id="stack-heading" class="mb-3">{t.heading}</h2>
+      <p class="text-text-muted max-w-[50ch]">{t.sub}</p>
     </div>
 
     <div class="space-y-10">
       {categories.map(category => (
         <div>
-          <!-- Category heading — overrides global h3 size via utilities layer -->
           <h3 class="!text-xs font-mono uppercase tracking-widest text-text-muted mb-4 pb-3 border-b border-border">
             {category.name}
           </h3>
@@ -90,7 +89,7 @@ const levelLabel: Record<1 | 2 | 3, string> = {
                 <span class="text-sm font-medium text-text truncate">{item.name}</span>
                 <div
                   class="flex gap-0.5 shrink-0"
-                  aria-label={`Nivel: ${levelLabel[item.level]}`}
+                  aria-label={`${t.levels[item.level]}`}
                   role="img"
                 >
                   {([1, 2, 3] as const).map(dot => (

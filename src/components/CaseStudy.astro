@@ -1,48 +1,49 @@
 ---
+import type { Lang, UI } from '../i18n/translations';
 import type { Project } from '../data/projects';
 
 interface Props {
   project: Project;
+  lang: Lang;
+  t: UI['caseStudy'];
 }
 
-const { project } = Astro.props;
+const { project, lang, t } = Astro.props;
 ---
 
 <section
   id={`case-${project.id}`}
   class="hidden border-t border-border bg-bg-subtle"
   role="region"
-  aria-label={`Caso de estudio: ${project.title}`}
+  aria-label={`${t.label}: ${project.title}`}
 >
   <div class="p-6">
 
     <p class="font-mono text-xs uppercase tracking-widest text-accent mb-6">
-      Caso de estudio
+      {t.label}
     </p>
 
-    <!-- Contexto + Mi rol -->
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
       <div>
         <h4 class="text-xs font-semibold text-text-muted uppercase tracking-wider mb-2">
-          Contexto
+          {t.context}
         </h4>
-        <p class="text-sm text-text leading-relaxed">{project.description}</p>
+        <p class="text-sm text-text leading-relaxed">{project.description[lang]}</p>
         <p class="text-sm text-text-muted mt-2">
-          <span class="text-text-muted/60">Cliente:</span> {project.client}
+          <span class="text-text-muted/60">{t.client}:</span> {project.client}
         </p>
       </div>
       <div>
         <h4 class="text-xs font-semibold text-text-muted uppercase tracking-wider mb-2">
-          Mi rol
+          {t.role}
         </h4>
-        <p class="text-sm text-text leading-relaxed">{project.myRole}</p>
+        <p class="text-sm text-text leading-relaxed">{project.myRole[lang]}</p>
       </div>
     </div>
 
-    <!-- Stack técnico -->
     <div class="mb-6">
       <h4 class="text-xs font-semibold text-text-muted uppercase tracking-wider mb-3">
-        Stack técnico
+        {t.stack}
       </h4>
       <div class="flex flex-wrap gap-2">
         {project.stack.map(tech => (
@@ -53,17 +54,16 @@ const { project } = Astro.props;
       </div>
     </div>
 
-    <!-- Métricas -->
     {project.metrics && project.metrics.length > 0 && (
       <div>
         <h4 class="text-xs font-semibold text-text-muted uppercase tracking-wider mb-3">
-          Resultados
+          {t.results}
         </h4>
         <div class="flex flex-wrap gap-3">
           {project.metrics.map(metric => (
             <div class="bg-bg-card border border-border rounded-lg px-5 py-4 min-w-[120px]">
               <div class="font-mono text-2xl font-bold text-accent">{metric.value}</div>
-              <div class="text-xs text-text-muted mt-1">{metric.label}</div>
+              <div class="text-xs text-text-muted mt-1">{metric.label[lang]}</div>
             </div>
           ))}
         </div>

@@ -1,18 +1,24 @@
 ---
+import type { UI } from '../i18n/translations';
+
+interface Props {
+  t: UI['contact'];
+}
+
+const { t } = Astro.props;
+
 const email = 'leanf94@gmail.com';
 ---
 
-<section id="contacto" class="section-py bg-bg-subtle" aria-labelledby="contacto-heading">
+<section id="contact" class="section-py bg-bg-subtle" aria-labelledby="contact-heading">
   <div class="container">
     <div class="max-w-2xl" data-scroll-fade>
 
-      <h2 id="contacto-heading" class="mb-4">¿Tenés un proyecto?</h2>
+      <h2 id="contact-heading" class="mb-4">{t.heading}</h2>
       <p class="text-text-muted text-xl max-w-[44ch] mb-10 leading-relaxed">
-        Hablemos. Estoy disponible para proyectos freelance,
-        trabajo remoto y nuevas oportunidades.
+        {t.sub}
       </p>
 
-      <!-- Email -->
       <div class="flex flex-wrap items-center gap-3 mb-8">
         <a
           href={`mailto:${email}`}
@@ -25,13 +31,14 @@ const email = 'leanf94@gmail.com';
           class="text-xs font-medium px-3 py-1.5 rounded-full border border-border
                  text-text-muted hover:text-text hover:border-text-muted/40
                  transition-all duration-200"
-          aria-label="Copiar email al portapapeles"
+          aria-label={t.copy}
+          data-label-copy={t.copy}
+          data-label-copied={t.copied}
         >
-          Copiar
+          {t.copy}
         </button>
       </div>
 
-      <!-- Social links -->
       <div class="flex flex-wrap gap-5">
         <a
           href="https://linkedin.com/in/chapototleandro"
@@ -71,15 +78,16 @@ const email = 'leanf94@gmail.com';
   btn?.addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText('leanf94@gmail.com');
-      const prev = btn.textContent ?? 'Copiar';
-      btn.textContent = '¡Copiado!';
+      const labelCopied = btn.dataset.labelCopied ?? 'Copied!';
+      const labelCopy   = btn.dataset.labelCopy   ?? 'Copy';
+      btn.textContent = labelCopied;
       btn.classList.add('text-green-400', '!border-green-400/30');
       setTimeout(() => {
-        btn.textContent = prev;
+        btn.textContent = labelCopy;
         btn.classList.remove('text-green-400', '!border-green-400/30');
       }, 2000);
     } catch {
-      // fallback silencioso — el link mailto sigue funcionando
+      // fallback silencioso
     }
   });
 </script>
