@@ -1,7 +1,37 @@
 ---
-// CHECKPOINT 6 — Footer: copyright, links sociales, tech stack
+const year = new Date().getFullYear();
 ---
 
-<footer>
-  <!-- Leandro Fernandez Chapotot © 2026 -->
+<footer class="border-t border-border py-8">
+  <div class="container flex flex-col sm:flex-row items-center justify-between gap-4">
+
+    <p class="text-sm text-text-muted">
+      Leandro Fernandez Chapotot © {year}
+    </p>
+
+    <div class="flex items-center gap-6 text-sm text-text-muted">
+      <a
+        href="https://linkedin.com/in/chapototleandro"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hover:text-text transition-colors duration-200"
+        aria-label="LinkedIn de Leandro Fernandez"
+      >
+        LinkedIn
+      </a>
+      <a
+        href="https://github.com/leanfch"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hover:text-text transition-colors duration-200"
+        aria-label="GitHub de Leandro Fernandez"
+      >
+        GitHub
+      </a>
+      <span class="text-text-muted/40 hidden sm:inline">
+        Hecho con Astro y Tailwind CSS
+      </span>
+    </div>
+
+  </div>
 </footer>
