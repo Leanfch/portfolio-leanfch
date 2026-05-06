@@ -63,7 +63,7 @@ const levelLabel: Record<1 | 2 | 3, string> = {
 <section id="stack" class="section-py" aria-labelledby="stack-heading">
   <div class="container">
 
-    <div class="mb-12">
+    <div class="mb-12" data-scroll-fade>
       <h2 id="stack-heading" class="mb-3">Stack</h2>
       <p class="text-text-muted max-w-[50ch]">
         Tecnologías con las que construyo productos web de alta performance.
@@ -78,13 +78,14 @@ const levelLabel: Record<1 | 2 | 3, string> = {
             {category.name}
           </h3>
 
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5">
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5" data-scroll-stagger>
             {category.items.map(item => (
               <div
                 class="flex items-center justify-between gap-3 px-3.5 py-3 rounded-lg
                        bg-bg-card border border-border
-                       hover:border-border/70 hover:bg-bg-subtle
-                       transition-colors duration-200"
+                       hover:border-accent/20 hover:bg-bg-subtle hover:-translate-y-0.5
+                       transition-all duration-200"
+                data-stagger-item
               >
                 <span class="text-sm font-medium text-text truncate">{item.name}</span>
                 <div
