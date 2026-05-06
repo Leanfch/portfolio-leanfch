@@ -4,6 +4,7 @@
 
 /* ─── Design tokens ──────────────────────────────────────────── */
 :root {
+  color-scheme: dark;
   --color-bg:          #0A0A0A;
   --color-bg-card:     #111111;
   --color-bg-subtle:   #1A1A1A;
@@ -32,6 +33,8 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Compensa el header fijo en navegación por anchor links */
+    scroll-padding-top: 5rem;
   }
 
   body {
@@ -70,6 +73,12 @@
     outline: 2px solid var(--color-accent);
     outline-offset: 3px;
     border-radius: 3px;
+  }
+
+  /* Selección de texto */
+  ::selection {
+    background-color: var(--color-accent-soft);
+    color: var(--color-text);
   }
 }
 
