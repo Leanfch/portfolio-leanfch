@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import Stack from '../components/Stack.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import { projects } from '../data/projects';
+---
+
+<BaseLayout>
+  <Header />
+  <main>
+    <Hero />
+    <section id="proyectos" aria-label="Proyectos">
+      {projects.map((project) => (
+        <ProjectCard project={project} />
+      ))}
+    </section>
+    <Stack />
+    <Contact />
+  </main>
+  <Footer />
+</BaseLayout>
