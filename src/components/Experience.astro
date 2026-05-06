@@ -1,0 +1,121 @@
+---
+interface ExperienceItem {
+  period: string
+  role: string
+  company: string
+  companyUrl?: string
+  description: string[]
+  tags: string[]
+}
+
+const items: ExperienceItem[] = [
+  {
+    period: 'Jul 2023 — Presente',
+    role: 'Desarrollador Full-Stack',
+    company: 'Thinkion',
+    description: [
+      'Diseñé y construí una plataforma CMS a medida desde cero para institución académica: relevamiento de requerimientos, especificaciones técnicas y desarrollo en PHP (MVC), MySQL y Firebase.',
+      'Logré una mejora del 72% en PageSpeed (de 53 a 91 puntos) mediante optimización de assets, CDN, lazy loading y Memcached.',
+      'Construí panel de administración con CRUD completo, gestión de roles y APIs JSON para integración con servicios externos usando HTMX y Tailwind CSS.',
+      'Gestioné infraestructura de despliegue: Docker, CI/CD en Google Cloud Run, Apache.',
+    ],
+    tags: ['PHP (MVC)', 'MySQL', 'Firebase', 'HTMX', 'Tailwind CSS', 'Docker', 'CI/CD'],
+  },
+  {
+    period: 'Mar 2024 — Presente',
+    role: 'Desarrollador Front-end',
+    company: 'Freelance',
+    description: [
+      'Desarrollé aplicaciones web con React, TypeScript y JavaScript ES6+, implementando componentes reutilizables y arquitectura escalable.',
+      'SEO técnico (meta tags, Open Graph, datos estructurados) e interfaces responsive pixel-perfect desde diseños Figma con Tailwind CSS.',
+      'Optimización de performance mediante code splitting, lazy loading y optimización de assets, logrando hasta 50% de mejora en PageSpeed.',
+    ],
+    tags: ['React', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'SEO', 'Figma'],
+  },
+  {
+    period: '2020 — 2021',
+    role: 'Desarrollador Web',
+    company: 'Freelance (WordPress)',
+    description: [
+      'Construcción y mantenimiento de sitios en WordPress. Administración de hosting, dominios, DNS y FTP.',
+    ],
+    tags: ['WordPress', 'HTML', 'CSS'],
+  },
+]
+---
+
+<section id="experiencia" class="section-py" aria-labelledby="experiencia-heading">
+  <div class="container">
+
+    <div class="mb-10" data-scroll-fade>
+      <h2 id="experiencia-heading" class="mb-3">Experiencia</h2>
+      <p class="text-text-muted max-w-[50ch]">
+        Empresas y proyectos donde apliqué mis habilidades técnicas.
+      </p>
+    </div>
+
+    <div class="space-y-1" data-scroll-stagger>
+      {items.map(item => (
+        <article
+          class="group flex flex-col sm:flex-row gap-3 sm:gap-8
+                 px-5 py-5 rounded-xl border border-transparent
+                 hover:bg-bg-subtle hover:border-border/50
+                 transition-all duration-200 cursor-default"
+          data-stagger-item
+        >
+          <!-- Período -->
+          <div class="sm:w-44 shrink-0 sm:pt-0.5">
+            <p class="font-mono text-xs text-text-muted tracking-wide whitespace-nowrap">
+              {item.period}
+            </p>
+          </div>
+
+          <!-- Contenido -->
+          <div class="flex-1 min-w-0">
+
+            <!-- Rol + empresa -->
+            <div class="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 mb-3">
+              <p class="text-base font-semibold text-text leading-snug">{item.role}</p>
+              <span class="text-border" aria-hidden="true">·</span>
+              {item.companyUrl ? (
+                <a
+                  href={item.companyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-sm text-accent hover:underline font-medium"
+                >
+                  {item.company}
+                  <span aria-hidden="true" class="text-xs ml-0.5 opacity-70">↗</span>
+                </a>
+              ) : (
+                <span class="text-sm text-text-muted font-medium">{item.company}</span>
+              )}
+            </div>
+
+            <!-- Bullets -->
+            <ul class="space-y-1.5 mb-4" role="list">
+              {item.description.map(bullet => (
+                <li class="flex gap-2.5 text-sm text-text-muted leading-relaxed">
+                  <span class="text-accent/50 shrink-0 mt-[5px] text-[9px]" aria-hidden="true">▸</span>
+                  <span>{bullet}</span>
+                </li>
+              ))}
+            </ul>
+
+            <!-- Tags de tecnologías -->
+            <div class="flex flex-wrap gap-1.5" aria-label="Tecnologías">
+              {item.tags.map(tag => (
+                <span class="font-mono text-xs px-2 py-0.5 rounded
+                             bg-accent-soft/30 border border-accent/20 text-accent">
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+          </div>
+        </article>
+      ))}
+    </div>
+
+  </div>
+</section>
