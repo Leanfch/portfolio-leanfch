@@ -1,7 +1,111 @@
 ---
-// CHECKPOINT 5 — Stack: grilla de tecnologías por categoría
+interface Tech {
+  name: string;
+  level: 1 | 2 | 3;
+}
+
+interface Category {
+  name: string;
+  items: Tech[];
+}
+
+const categories: Category[] = [
+  {
+    name: 'Frontend',
+    items: [
+      { name: 'HTML',         level: 3 },
+      { name: 'CSS',          level: 3 },
+      { name: 'JavaScript',   level: 3 },
+      { name: 'TypeScript',   level: 2 },
+      { name: 'Astro',        level: 3 },
+      { name: 'Tailwind CSS', level: 3 },
+      { name: 'React',        level: 2 },
+      { name: 'HTMX',         level: 2 },
+    ],
+  },
+  {
+    name: 'Backend',
+    items: [
+      { name: 'PHP (MVC)', level: 3 },
+      { name: 'Node.js',   level: 2 },
+      { name: 'MySQL',     level: 2 },
+      { name: 'Firebase',  level: 2 },
+    ],
+  },
+  {
+    name: 'Herramientas',
+    items: [
+      { name: 'Git',        level: 3 },
+      { name: 'Figma',      level: 2 },
+      { name: 'Vercel',     level: 3 },
+      { name: 'Lighthouse', level: 3 },
+      { name: 'Docker',     level: 1 },
+    ],
+  },
+  {
+    name: 'Performance',
+    items: [
+      { name: 'Core Web Vitals', level: 3 },
+      { name: 'WebP / AVIF',    level: 3 },
+      { name: 'Lazy loading',   level: 3 },
+      { name: 'CDN',            level: 2 },
+    ],
+  },
+];
+
+const levelLabel: Record<1 | 2 | 3, string> = {
+  1: 'básico',
+  2: 'intermedio',
+  3: 'avanzado',
+};
 ---
 
-<section id="stack" aria-label="Stack tecnológico">
-  <!-- Stack grid -->
+<section id="stack" class="section-py" aria-labelledby="stack-heading">
+  <div class="container">
+
+    <div class="mb-12">
+      <h2 id="stack-heading" class="mb-3">Stack</h2>
+      <p class="text-text-muted max-w-[50ch]">
+        Tecnologías con las que construyo productos web de alta performance.
+      </p>
+    </div>
+
+    <div class="space-y-10">
+      {categories.map(category => (
+        <div>
+          <!-- Category heading — overrides global h3 size via utilities layer -->
+          <h3 class="!text-xs font-mono uppercase tracking-widest text-text-muted mb-4 pb-3 border-b border-border">
+            {category.name}
+          </h3>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5">
+            {category.items.map(item => (
+              <div
+                class="flex items-center justify-between gap-3 px-3.5 py-3 rounded-lg
+                       bg-bg-card border border-border
+                       hover:border-border/70 hover:bg-bg-subtle
+                       transition-colors duration-200"
+              >
+                <span class="text-sm font-medium text-text truncate">{item.name}</span>
+                <div
+                  class="flex gap-0.5 shrink-0"
+                  aria-label={`Nivel: ${levelLabel[item.level]}`}
+                  role="img"
+                >
+                  {([1, 2, 3] as const).map(dot => (
+                    <span
+                      class={`w-1.5 h-1.5 rounded-full ${
+                        dot <= item.level ? 'bg-accent' : 'bg-border'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
 </section>
